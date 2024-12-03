@@ -1,14 +1,20 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch } from "@headlessui/react";
-
-import useDarkMode from "../hooks/useDarkMode";
-import { Board, HeaderDropdownProps } from "../types";
-import boardIcon from "../assets/icon-board.svg";
-import darkIcon from "../assets/icon-dark-theme.svg";
-import lightIcon from "../assets/icon-light-theme.svg";
 import { useState } from "react";
 
-function HeaderDropdown({ setOpenDropdown }: HeaderDropdownProps) {
+import { Board, HeaderDropdownProps } from "../types";
+import useDarkMode from "../hooks/useDarkMode";
+import boardsSlice from "../redux/boardsSlice";
+
+import darkIcon from "../assets/icon-dark-theme.svg";
+import lightIcon from "../assets/icon-light-theme.svg";
+import boardIcon from "../assets/icon-board.svg";
+
+function HeaderDropdown({
+  setOpenDropdown,
+  setBoardModalOpen,
+}: HeaderDropdownProps) {
+  const dispatch = useDispatch();
   const [colorTheme, setTheme] = useDarkMode();
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
@@ -36,17 +42,26 @@ function HeaderDropdown({ setOpenDropdown }: HeaderDropdownProps) {
         <div>
           {boards.map((board, index) => (
             <div
-              className={`flex items-baseline dark:text-white space-x-2 px-5 py-4 ${
+              className={`flex cursor-pointer items-baseline dark:text-white space-x-2 px-5 py-4 ${
                 board.isActive && "bg-[#635fc7] rounded-r-full text-white mr-8"
               }`}
               key={index}
+              onClick={() => {
+                dispatch(boardsSlice.actions.setBoardActive({ index }));
+              }}
             >
               <img src={boardIcon} className="h-4" />
               <p className="text-lg font-bold">{board.name}</p>
             </div>
           ))}
 
-          <div className="flex items-baseline space-x-2 text-[#635fc7] px-5 py-4">
+          <div
+            className="flex cursor-pointer items-baseline space-x-2 text-[#635fc7] px-5 py-4"
+            onClick={() => {
+              setBoardModalOpen(true);
+              setOpenDropdown(false);
+            }}
+          >
             <img src={boardIcon} className="h-4" />
             <p className="text-lg font-bold">Create New Board</p>
           </div>
