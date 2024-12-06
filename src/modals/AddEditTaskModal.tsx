@@ -18,7 +18,7 @@ function AddEditTaskModal({
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  const [, setIsValid] = useState(true);
   const [subtasks, setSubtasks] = useState<Subtask[]>([
     {
       title: "",

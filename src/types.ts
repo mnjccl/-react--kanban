@@ -44,12 +44,20 @@ export interface AddEditTaskModalProps {
   type: string;
   device: string;
   setOpenAddEditTask: React.Dispatch<React.SetStateAction<boolean>>;
-  prevColIndex: number;
-  taskIndex: number;
+  prevColIndex?: number;
+  taskIndex?: number;
 }
 
 export interface Subtask {
   title: string;
   isComplited: boolean;
   id: string;
+}
+
+// ELIPSIS MENU
+
+export interface ElipsisMenuProps {
+  type: string;
+  setOpenEditModal: () => void;
+  setOpenDeleteModal: () => void;
 }

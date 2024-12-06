@@ -10,13 +10,26 @@ import iconDown from "../assets/icon-chevron-down.svg";
 import iconUp from "../assets/icon-chevron-up.svg";
 import elipsis from "../assets/icon-vertical-ellipsis.svg";
 import AddEditTaskModal from "../modals/AddEditTaskModal";
+import ElipsisMenu from "./ElipsisMenu";
 
 function Header({ boardModalOpen, setBoardModalOpen }: HeaderProps) {
   const [openDropdown, setOpenDropdown] = useState(false);
+  const [, setIsDeleteModalOpen] = useState(false);
   const [openAddEditTask, setOpenAddEditTask] = useState(false);
-  const boardType = "add";
+  const [isElipsisOpen, setIsElipsisOpen] = useState(false);
+  const [boardType, setBoardType] = useState("add");
   const boards = useSelector((state: BoardsProps) => state.boards);
   const board = boards.find((board) => board.isActive);
+
+  const setOpenEditModal = () => {
+    setBoardModalOpen(true);
+    setIsElipsisOpen(false);
+  };
+
+  const setOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+    setIsElipsisOpen(false);
+  };
 
   return (
     <div className="p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0">
@@ -47,7 +60,23 @@ function Header({ boardModalOpen, setBoardModalOpen }: HeaderProps) {
           >
             +
           </button>
-          <img src={elipsis} alt="elipsis" className="cursor-pointer h-6" />
+          <img
+            src={elipsis}
+            onClick={() => {
+              setBoardType("edit");
+              setOpenDropdown(false);
+              setIsElipsisOpen((state) => !state);
+            }}
+            alt="elipsis"
+            className="cursor-pointer h-6"
+          />
+          {isElipsisOpen && (
+            <ElipsisMenu
+              type="Boards"
+              setOpenDeleteModal={setOpenDeleteModal}
+              setOpenEditModal={setOpenEditModal}
+            />
+          )}
         </div>
       </header>
 
@@ -69,7 +98,7 @@ function Header({ boardModalOpen, setBoardModalOpen }: HeaderProps) {
         <AddEditTaskModal
           setOpenAddEditTask={setOpenAddEditTask}
           device="mobile"
-          type="add "
+          type="add"
         />
       )}
     </div>
