@@ -2,6 +2,38 @@
 // SORTED BY COMPONENTS
 ///////////////////////////////////////
 
+// ADD EDIT BOARD MODAL
+
+export interface AddEditBoardModalProps {
+  setBoardModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  type: string;
+}
+
+// ADD EDIT TASK MODAL
+
+export interface AddEditTaskModalProps {
+  type: string;
+  device: string;
+  setOpenAddEditTask: React.Dispatch<React.SetStateAction<boolean>>;
+  prevColIndex?: number;
+  taskIndex?: number;
+}
+
+export interface Subtask {
+  title: string;
+  isComplited: boolean;
+  id: string;
+}
+
+// DELETE MODAL
+
+export interface DeleteModalProps {
+  type: string;
+  title: string | undefined;
+  onDeleteBtnClick: () => void;
+  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 // HEADER
 
 export interface HeaderProps {
@@ -29,29 +61,6 @@ export interface Board {
   id: string;
   isActive: boolean;
   name: string;
-}
-
-// ADD EDIT BOARD MODAL
-
-export interface AddEditBoardModalProps {
-  setBoardModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  type: string;
-}
-
-// ADD EDIT TASK MODAL
-
-export interface AddEditTaskModalProps {
-  type: string;
-  device: string;
-  setOpenAddEditTask: React.Dispatch<React.SetStateAction<boolean>>;
-  prevColIndex?: number;
-  taskIndex?: number;
-}
-
-export interface Subtask {
-  title: string;
-  isComplited: boolean;
-  id: string;
 }
 
 // ELIPSIS MENU
