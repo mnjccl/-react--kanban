@@ -22,7 +22,7 @@ function AddEditTaskModal({
   const [subtasks, setSubtasks] = useState<Subtask[]>([
     {
       title: "",
-      isComplited: false,
+      isCompleted: false,
       id: uuidv4(),
     },
   ]);
@@ -30,7 +30,7 @@ function AddEditTaskModal({
   const boards = useSelector((state: { boards: Board[] }) => state.boards);
   const board = boards.find((board: Board) => board.isActive);
   const columns = board?.columns;
-  const col = columns?.find((col, index) => index === prevColIndex);
+  const col = columns?.find((_, index) => index === prevColIndex);
   const [status, setStatus] = useState(
     columns && columns[prevColIndex] ? columns[prevColIndex].name : ""
   );
@@ -164,7 +164,7 @@ function AddEditTaskModal({
                 ...state,
                 {
                   title: "",
-                  isComplited: false,
+                  isCompleted: false,
                   id: uuidv4(),
                 },
               ]);

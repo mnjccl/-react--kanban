@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Board } from "../types";
+import { Board, CenterProps } from "../types";
 import Column from "./Column";
 import Sidebar from "./Sidebar";
 
-function Center({ boardModalOpen, setBoardModalOpen }) {
+function Center({ boardModalOpen, setBoardModalOpen }: CenterProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,

@@ -21,7 +21,7 @@ export interface AddEditTaskModalProps {
 
 export interface Subtask {
   title: string;
-  isComplited: boolean;
+  isCompleted: boolean;
   id: string;
 }
 
@@ -51,9 +51,18 @@ export interface HeaderDropdownProps {
   setOpenDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   setBoardModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-interface Column {
+
+export interface Column {
   name: string;
   id: string;
+  tasks: Task[];
+}
+
+export interface Task {
+  id: string;
+  title: string;
+  description?: string;
+  subtasks: Subtask[];
 }
 
 export interface Board {
@@ -69,4 +78,11 @@ export interface ElipsisMenuProps {
   type: string;
   setOpenEditModal: () => void;
   setOpenDeleteModal: () => void;
+}
+
+// CENTER
+
+export interface CenterProps {
+  boardModalOpen: boolean;
+  setBoardModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
