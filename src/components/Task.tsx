@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 import { Board, Subtask } from "../types";
-import TaskModal from "./TaskModal";
+import TaskModal from "../modals/TaskModal";
 
 function Task({
   taskIndex,

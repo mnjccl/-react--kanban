@@ -34,6 +34,14 @@ export interface DeleteModalProps {
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// TASK MODAL
+
+export interface TaskModalProps {
+  colIndex: number;
+  taskIndex: number;
+  setIsTaskModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 // HEADER
 
 export interface HeaderProps {
@@ -60,6 +68,7 @@ export interface Column {
 
 export interface Task {
   id: string;
+  status: string;
   title: string;
   description?: string;
   subtasks: Subtask[];

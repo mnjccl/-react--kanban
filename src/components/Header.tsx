@@ -23,7 +23,6 @@ function Header({ boardModalOpen, setBoardModalOpen }: HeaderProps) {
   const [boardType, setBoardType] = useState("add");
   const boards = useSelector((state: BoardsProps) => state.boards);
   const board = boards.find((board) => board.isActive);
-  console.log(board);
 
   const setOpenEditModal = () => {
     setBoardModalOpen(true);
