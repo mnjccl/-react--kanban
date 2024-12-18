@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { AddEditTaskModalProps, Board, Subtask } from "../types";
+import { AddEditTaskModalProps, Board, Subtask, Task } from "../types";
 import boardsSlice from "../redux/boardsSlice";
 
 import crossIcon from "../assets/icon-cross.svg";
@@ -11,11 +11,13 @@ function AddEditTaskModal({
   type,
   device,
   taskIndex,
+  setIsTaskModalOpen,
   setOpenAddEditTask,
   prevColIndex = 0,
 }: AddEditTaskModalProps) {
   const dispatch = useDispatch();
 
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [, setIsValid] = useState(true);
@@ -31,10 +33,22 @@ function AddEditTaskModal({
   const board = boards.find((board: Board) => board.isActive);
   const columns = board?.columns;
   const col = columns?.find((_, index) => index === prevColIndex);
+  const task = col?.tasks?.[taskIndex ?? -1] as Task | undefined;
   const [status, setStatus] = useState(
     columns && columns[prevColIndex] ? columns[prevColIndex].name : ""
   );
   const [newColIndex, setNewColIndex] = useState(prevColIndex);
+
+  if (type === "edit" && isFirstLoad && task) {
+    setSubtasks(
+      task?.subtasks.map((subtask: Subtask) => {
+        return { ...subtask, id: uuidv4() };
+      })
+    );
+    setTitle(task.title || "");
+    setDesc(task.description || "");
+    setIsFirstLoad(false);
+  }
 
   const onDelete = (id: string) => {
     setSubtasks((prev) => prev.filter((el) => el.id !== id));

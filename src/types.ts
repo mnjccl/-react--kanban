@@ -13,8 +13,9 @@ export interface AddEditBoardModalProps {
 
 export interface AddEditTaskModalProps {
   type: string;
-  device: string;
+  device?: string;
   setOpenAddEditTask: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsTaskModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   prevColIndex?: number;
   taskIndex?: number;
 }
