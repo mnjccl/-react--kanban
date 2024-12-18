@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { Board, CenterProps } from "../types";
 import Column from "./Column";
 import Sidebar from "./Sidebar";
+import EmptyBoard from "./EmptyBoard";
+import AddEditBoardModal from "../modals/AddEditBoardModal";
 
 function Center({ boardModalOpen, setBoardModalOpen }: CenterProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -36,9 +38,23 @@ function Center({ boardModalOpen, setBoardModalOpen }: CenterProps) {
       }
     >
       {windowSize[0] >= 768 && <Sidebar />}
-      {columns?.map((_, index) => (
-        <Column key={index} colIndex={index} />
-      ))}
+      {columns && columns?.length > 0 ? (
+        <>
+          {columns?.map((_, index) => (
+            <Column key={index} colIndex={index} />
+          ))}
+          <div className="h-screen dark:bg-[#2b2c3740] flex justify-center items-center font-bold text-2xl hover:text-[#635fc7] transition duration-300 cursor-pointer bg-[#e9effa] scrollbar-hide mb-2 mx-5 pt-[90px] min-w-[280px] text-[#828fa3] mt-[135px] rounded-lg">
+            + New Column
+          </div>
+        </>
+      ) : (
+        <>
+          <EmptyBoard type="edit" />
+        </>
+      )}
+      {boardModalOpen && (
+        <AddEditBoardModal type="edit" setBoardModalOpen={setBoardModalOpen} />
+      )}
     </div>
   );
 }
