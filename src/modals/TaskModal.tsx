@@ -56,6 +56,7 @@ function TaskModal({
         status,
       })
     );
+    setIsTaskModalOpen(false);
   };
 
   const onDeleteBtnClick = () => {
