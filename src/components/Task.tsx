@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { DragEvent, useState } from "react";
 
 import { Board, Subtask } from "../types";
 import TaskModal from "../modals/TaskModal";
@@ -26,9 +26,18 @@ function Task({
     0
   );
 
+  const handleOnDrag = (e: DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData(
+      "text",
+      JSON.stringify({ taskIndex, prevColIndex: colIndex })
+    );
+  };
+
   return (
     <div>
       <div
+        onDragStart={handleOnDrag}
+        draggable
         onClick={() => setIsTaskModalOpen(true)}
         className="w-[280px] first:my-5 rounded-lg bg-white dark:bg-[#2b2c37] shadow-[#364e7e1a] py-6 px-3 shadow-lg hover:text-[#635fc7] dark:text-white dark:hover:text-[#635fc7] cursor-poineter"
       >
@@ -37,7 +46,13 @@ function Task({
           {completed} of {subtasks.length} completed tasks
         </p>
       </div>
-      {isTaskModalOpen && <TaskModal />}
+      {isTaskModalOpen && (
+        <TaskModal
+          colIndex={colIndex}
+          taskIndex={taskIndex}
+          setIsTaskModalOpen={setIsTaskModalOpen}
+        />
+      )}
     </div>
   );
 }
