@@ -37,7 +37,12 @@ function Center({ boardModalOpen, setBoardModalOpen }: CenterProps) {
           : "bg-[#f4f7fd] scrollbar-hide h-screen flex dark:bg-[#20212c] overflow-x-scroll gap-6"
       }
     >
-      {windowSize[0] >= 768 && <Sidebar />}
+      {windowSize[0] >= 768 && (
+        <Sidebar
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      )}
       {columns && columns?.length > 0 ? (
         <>
           {columns?.map((_, index) => (

@@ -96,3 +96,10 @@ export interface CenterProps {
   boardModalOpen: boolean;
   setBoardModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+// SIDEBAR
+
+export interface SidebarProps {
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isSidebarOpen: boolean;
+}
