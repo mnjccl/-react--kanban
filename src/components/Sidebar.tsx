@@ -5,11 +5,13 @@ import { Switch } from "@headlessui/react";
 
 import { Board, SidebarProps } from "../types";
 import boardsSlice from "../redux/boardsSlice";
+import AddEditBoardModal from "../modals/AddEditBoardModal";
 
 import boardIcon from "../assets/icon-board.svg";
 import darkIcon from "../assets/icon-dark-theme.svg";
 import lightIcon from "../assets/icon-light-theme.svg";
-import AddEditBoardModal from "../modals/AddEditBoardModal";
+import showSidebarIcon from "../assets/icon-show-sidebar.svg";
+import hideSidebarIcon from "../assets/icon-hide-sidebar.svg";
 
 function Sidebar({ setIsSidebarOpen, isSidebarOpen }: SidebarProps) {
   const dispatch = useDispatch();
@@ -41,11 +43,11 @@ function Sidebar({ setIsSidebarOpen, isSidebarOpen }: SidebarProps) {
               <h3 className="dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8">
                 ALL BOARDS ({boards?.length})
               </h3>
-              <div className="flex flex-col h-[70vh] justify-between">
+              <div className="flex flex-col h-[70vh]">
                 <div>
                   {boards.map((board, index) => (
                     <div
-                      className={`flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover-text-[#635fc7] dark:text-white ${
+                      className={`flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white ${
                         board.isActive &&
                         "bg-[#635fc7] rounded-r-full text-white mr-8"
                       }`}
@@ -58,6 +60,7 @@ function Sidebar({ setIsSidebarOpen, isSidebarOpen }: SidebarProps) {
                       <p className="text-lg font-bold">{board.name}</p>
                     </div>
                   ))}
+
                   <div
                     onClick={() => setIsBoardModalOpen(true)}
                     className="flex items-baseline space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover-text-[#635fc7] dark:hover:bg-white"
@@ -66,8 +69,7 @@ function Sidebar({ setIsSidebarOpen, isSidebarOpen }: SidebarProps) {
                     <p className="text-lg font-bold">Create New Board</p>
                   </div>
                 </div>
-
-                <div className="mx-2 p-4 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg">
+                <div className="mx-2 p-4 space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg">
                   <img src={lightIcon} />
                   <Switch
                     checked={darkSide}
@@ -84,7 +86,29 @@ function Sidebar({ setIsSidebarOpen, isSidebarOpen }: SidebarProps) {
                   </Switch>
                   <img src={darkIcon} />
                 </div>
+
+                {isSidebarOpen && (
+                  <div
+                    onClick={() => setIsSidebarOpen((state) => !state)}
+                    className="flex items-center mt-2 bottom-16 text-lg font-bold rounded-r-full hover:text-[#635FC7] cursor-pointer mr-6 mb-8 px-8 py-4 hover:bg-[#635fc71a] dark:hover:bg-white space-x-2 justify-center my-4 text-gray-500"
+                  >
+                    <img
+                      className="min-w-[20px]"
+                      src={hideSidebarIcon}
+                      alt=" side bar show/hide"
+                    />
+                    {isSidebarOpen && <p> Hide Sidebar </p>}
+                  </div>
+                )}
               </div>
+            </div>
+          )}
+          {!isSidebarOpen && (
+            <div
+              className="p-5"
+              onClick={() => setIsSidebarOpen((state) => !state)}
+            >
+              <img src={showSidebarIcon} alt="showSidebarIcon" />
             </div>
           )}
         </div>

@@ -18,7 +18,7 @@ function App() {
     dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
 
   return (
-    <div className="overflow-hidden overflow-x-scroll">
+    <div className="overflow-hidden overflow-x-scroll scrollbar-hide">
       <>
         {boards.length > 0 ? (
           <>

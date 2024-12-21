@@ -33,8 +33,8 @@ function Center({ boardModalOpen, setBoardModalOpen }: CenterProps) {
     <div
       className={
         windowSize[0] >= 768 && isSidebarOpen
-          ? "bg-[#f4f7fd] scrollbar-hide h-screen flex dark:bg-[#20212c] overflow-x-scroll gap-6 ml-[261px]"
-          : "bg-[#f4f7fd] scrollbar-hide h-screen flex dark:bg-[#20212c] overflow-x-scroll gap-6"
+          ? "bg-[#f4f7fd] h-screen flex dark:bg-[#20212c] overflow-x-scroll scrollbar-hide gap-6 ml-[261px]"
+          : "bg-[#f4f7fd]  h-screen flex dark:bg-[#20212c] overflow-x-scroll scrollbar-hide gap-6 ml-0"
       }
     >
       {windowSize[0] >= 768 && (
